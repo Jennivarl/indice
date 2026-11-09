@@ -7,6 +7,9 @@
 - Agent wallet: [`0x8c4B5BF71fef22d0eE3D411A3964d3579248478A`](https://celoscan.io/address/0x8c4B5BF71fef22d0eE3D411A3964d3579248478A)
 - ERC-8004 identity: **agentId 10062** ([registration tx](https://celoscan.io/tx/0x3d2ce9f87ed352b24e13e2e46b48c0b664c15ca381f6facb7bf335f7dd87bbeb))
 - Attribution tag (ERC-8021): `celo_17d218c9c0b2` on every transaction the agent sends
+- Telegram bot: [@IndiceDiarioBot](https://t.me/IndiceDiarioBot)
+
+**First confirmed price on mainnet:** two people on two Telegram accounts reported milk at 1,450 and 1,480 pesos (within 5%). The agent confirmed it and paid each of them 50 wARS automatically: [payout 1](https://celoscan.io/tx/0x37e98406c25802ce6a8c41cf1dd6243d2234668345822617c6f9eafa9895f318), [payout 2](https://celoscan.io/tx/0xedf77f44be81f37fdb4afc1f263901509d7c838dcbefb56bfe1a43c786dfb902). The two receiving wallets were created for this test.
 
 ---
 

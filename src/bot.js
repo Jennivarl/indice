@@ -11,7 +11,7 @@ const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const API = `https://api.telegram.org/bot${TOKEN}`;
 const WEB = process.env.PUBLIC_URL || '';
 const BANNER = path.resolve('assets/banner.png');
-const txLink = (h) => `<a href="https://celoscan.io/tx/${h}">ver en Celoscan ↗</a>`;
+const txLink = (h, lang = 'es') => `<a href="https://celoscan.io/tx/${h}">${lang === 'en' ? 'view on Celoscan' : 'ver en Celoscan'} ↗</a>`;
 const ars = (n) => '$' + Math.round(n).toLocaleString('es-AR');
 
 async function call(method, body) {
@@ -112,7 +112,7 @@ const T = {
     received: (p, price, reward) => `📝 <b>Received</b>: ${p} at ${ars(price)}\nWhen another person confirms a similar price, you earn <b>${reward} wARS</b>.`,
     confirmed: (p, price) => `✅ <b>Confirmed</b>: ${p} at ${ars(price)}\nSomeone else saw the same price! Paying you now.`,
     outlier: (m) => `⚠️ That price is far from what people report (median ~${ars(m)}). Can you check it?`,
-    paid: (n, h) => `💸 <b>We paid you ${n} wARS</b> for confirmed prices.\n${txLink(h)}`,
+    paid: (n, h) => `💸 <b>We paid you ${n} wARS</b> for confirmed prices.\n${txLink(h, 'en')}`,
     noIndex: 'No confirmed prices yet today. Be one of the first to report! 💪',
     basketTitle: '🧺 <b>Índice basket</b> (last confirmed price)',
     mine: (r, c, e) => `💼 <b>Your numbers</b>\nReports: ${r}\nConfirmed: ${c}\nEarned: <b>${e} wARS</b>`,
@@ -148,7 +148,7 @@ function basketCard(lang) {
 function mineCard(tgId, lang) {
   const db = load(); const mine = db.reports.filter((r) => r.tgId === tgId);
   const earned = mine.filter((r) => r.paid).length * RULES.rewardWars;
-  const txs = [...new Set(mine.filter((r) => r.payTx).map((r) => r.payTx))].slice(-3).map((h) => '\n' + txLink(h)).join('');
+  const txs = [...new Set(mine.filter((r) => r.payTx).map((r) => r.payTx))].slice(-3).map((h) => '\n' + txLink(h, lang)).join('');
   return T[lang].mine(mine.length, mine.filter((r) => r.confirmed).length, earned) + txs;
 }
 
