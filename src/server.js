@@ -85,5 +85,8 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-
 </main></body></html>`);
   });
 
-  app.listen(port, () => console.log(`Web on http://localhost:${port}`));
+  app.listen(port, (err) => {
+    if (err) { console.error(`Cannot start web on port ${port}: ${err.message}`); process.exit(1); }
+    console.log(`Web on http://localhost:${port} (x402 ${process.env.X402_API_KEY ? 'on' : 'off'})`);
+  });
 }

@@ -6,7 +6,8 @@
     "start": "node src/main.js",
     "test": "node --test test/core.test.js",
     "register": "node scripts/register-8004.mjs",
-    "fund": "node scripts/fund-rewards.mjs"
+    "fund": "node scripts/fund-rewards.mjs",
+    "buy": "node scripts/buy-index.mjs"
   },
   "keywords": [],
   "author": "varl999",
@@ -17,6 +18,7 @@
     "@x402/core": "^2.30.0",
     "@x402/evm": "^2.30.0",
     "@x402/express": "^2.30.0",
+    "@x402/fetch": "^2.30.0",
     "dotenv": "^18.0.10",
     "express": "^5.3.0",
     "viem": "^2.57.17"

@@ -44,7 +44,7 @@ A cheater can take a few cents a day at most, and every payment is public.
 
 - **wARS (Ripio wFIAT)**: the currency people earn, and the currency agents pay with.
 - **Textile FX**: the agent bought its peso treasury on Textile's RFQ market without an API key (1.10 USD₮ → 1,824.84 wARS, [tx](https://celoscan.io/tx/0x1932c3db5674c2a94157de8328055fd7e3538f9065b19b97f4c9fe4bdfdc58e1)).
-- **x402 via Celo's facilitator**: the index is sold per call in wARS (Permit2 asset, gasless for the buyer).
+- **x402 via Celo's facilitator**: the index is sold per call in wARS (Permit2 asset, gasless for the buyer). First paid call on mainnet: 100 wARS, [settlement tx](https://celoscan.io/tx/0xab13e3df2b8df677ae1f3c70cc929a9828f80c0171f287cefffe914d1dd77ea1) (the buyer was our own demo customer wallet, `scripts/buy-index.mjs`).
 - **ERC-8004**: agentId 10062, registered from the agent wallet.
 - **ERC-8021 attribution tags**: every agent transaction carries `celo_17d218c9c0b2` (verified with `verifyTx`).
 - **Official data**: BCRA's public API (INDEC monthly and yearly inflation) is shown next to Índice's number.
@@ -65,6 +65,7 @@ src/
 scripts/
   register-8004.mjs   registers the agent's ERC-8004 identity
   fund-rewards.mjs    buys wARS with USD₮ on Textile for the reward treasury
+  buy-index.mjs       example customer: pays 100 wARS over x402 for the full index
 test/core.test.js     offline tests for parsing and product matching
 ```
 
@@ -143,7 +144,19 @@ Expected in the terminal: `Web on http://localhost:8787` and `Telegram bot polli
 - Dashboard: http://localhost:8787
 - Free summary: http://localhost:8787/api/summary
 - Every payout and the treasury balance: http://localhost:8787/api/books
-- Paid index: `curl -i http://localhost:8787/api/index` should answer **HTTP 402** with the wARS price (when `X402_API_KEY` is set). An x402 client (for example `@x402/fetch`) pays it and gets the full JSON.
+- Paid index: `curl -i http://localhost:8787/api/index` should answer **HTTP 402** with the wARS price (when `X402_API_KEY` is set).
+
+### 8. Buy the index like another agent would (optional, real money)
+
+1. Create a file named `.env.buyer` with one line: `BUYER_PRIVATE_KEY=0x...` (a separate wallet).
+2. Send that wallet at least **100 wARS**. It needs no CELO, because the facilitator sponsors the gas.
+3. With Índice running, run:
+
+```bash
+npm run buy
+```
+
+Expected: `HTTP 200`, `settled: true` and a Celoscan link showing 100 wARS moving from the buyer to the agent wallet.
 
 ---
 
