@@ -37,6 +37,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
 
 export function startServer(port = Number(process.env.PORT || 8787)) {
   const app = express();
+  app.use('/assets', express.static('assets', { maxAge: '1d' }));
 
   if (process.env.X402_API_KEY) app.use(paidRoutes());
   else app.get('/api/index', (_q, res) => res.status(503).json({ error: 'x402 not configured (X402_API_KEY missing)' }));
@@ -66,14 +67,16 @@ export function startServer(port = Number(process.env.PORT || 8787)) {
     const rows = ix.basket.map((p) => `<tr><td>${esc(p.name)}</td><td>${p.lastPrice ? '$' + Math.round(p.lastPrice).toLocaleString('es-AR') : '-'}</td></tr>`).join('');
     const pays = db.payouts.slice(-15).reverse().map((p) => `<tr><td>${new Date(p.ts).toISOString().slice(0, 16).replace('T', ' ')}</td><td>${p.amountWars} wARS</td><td><a href="https://celoscan.io/tx/${p.tx}">${p.tx.slice(0, 10)}…</a></td></tr>`).join('') || '<tr><td colspan="3">Todavía no hay pagos.</td></tr>';
     res.type('html').send(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Índice</title><style>
+<title>Índice</title><link rel="icon" href="/assets/logo-512.png"><meta property="og:image" content="/assets/banner.png"><meta name="description" content="Argentina's inflation number, every day, made by people who get paid in pesos (wARS) on Celo."><style>
 :root{--bg:#f6f4ee;--fg:#1b1b1b;--muted:#666;--card:#fff;--line:#e3dfd3;--accent:#2f6f4f}
 @media (prefers-color-scheme:dark){:root{--bg:#121412;--fg:#ecece6;--muted:#9a9a92;--card:#1b1e1b;--line:#2b2f2b;--accent:#7fd1a2}}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}main{max-width:820px;margin:0 auto;padding:24px 16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}h1{margin:0}.big{font-size:44px;font-weight:700;color:var(--accent)}
 .muted{color:var(--muted)}table{width:100%;border-collapse:collapse}td{padding:6px 4px;border-bottom:1px solid var(--line)}a{color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}code{background:var(--line);padding:2px 6px;border-radius:6px}</style></head>
-<body><main><h1>Índice 🇦🇷</h1><p class="muted">La inflación de Argentina, todos los días, hecha por la gente. Cada precio confirmado se paga en pesos (wARS) en Celo.</p>
+<body><main><div style="display:flex;align-items:center;gap:14px"><img src="/assets/logo-512.png" alt="" width="56" height="56" style="border-radius:50%"><h1>Índice</h1></div>
+<p class="muted">La inflación de Argentina, todos los días, hecha por la gente. Cada precio confirmado se paga en pesos (wARS) en Celo.<br><i>Argentina's inflation, every day, made by people. Every confirmed price is paid in pesos (wARS) on Celo.</i></p>
+<p><a href="https://t.me/IndiceDiarioBot"><b>Reportá precios en Telegram → @IndiceDiarioBot</b></a></p>
 <div class="grid"><div class="card"><div class="muted">Índice (base 100)</div><div class="big">${ix.latest ? ix.latest.level : '-'}</div>
 <div class="muted">${ix.latest ? `${ix.latest.day} · ${ix.latest.coverage}/${ix.basket.length} productos` : 'Esperando precios confirmados'}${ix.dailyChangePct !== null ? ` · ${ix.dailyChangePct >= 0 ? '+' : ''}${ix.dailyChangePct}% vs ayer` : ''}</div></div>
 <div class="card"><div class="muted">Oficial INDEC (vía BCRA)</div><div class="big">${off.monthlyPct ?? '-'}%</div><div class="muted">mensual (${esc(off.month || '')}) · ${off.yearlyPct ?? '-'}% anual. Publicado con semanas de atraso.</div></div></div>

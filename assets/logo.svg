@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8CC8F2"/>
+      <stop offset="1" stop-color="#2F7FC8"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD54A"/>
+      <stop offset="1" stop-color="#F2A900"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+  <!-- price tag -->
+  <g transform="rotate(-12 256 256)">
+    <path d="M150 170 h170 a24 24 0 0 1 17 7 l64 64 a24 24 0 0 1 0 34 l-64 64 a24 24 0 0 1 -17 7 h-170 a24 24 0 0 1 -24 -24 v-128 a24 24 0 0 1 24 -24 z" fill="#FFFFFF"/>
+    <circle cx="352" cy="258" r="15" fill="#2F7FC8"/>
+    <!-- rising line inside the tag -->
+    <polyline points="168,300 210,268 244,282 300,212" fill="none" stroke="url(#sun)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="300" cy="212" r="17" fill="url(#sun)"/>
+  </g>
+</svg>
