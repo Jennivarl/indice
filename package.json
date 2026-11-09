@@ -1,0 +1,27 @@
+{
+  "name": "indice",
+  "version": "1.0.0",
+  "description": "Indice: a daily Argentine inflation index built from crowd-reported prices, paid in wARS on Celo",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --test test/core.test.js",
+    "register": "node scripts/register-8004.mjs",
+    "fund": "node scripts/fund-rewards.mjs"
+  },
+  "keywords": [],
+  "author": "varl999",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@celo/attribution-tags": "^0.5.0",
+    "@x402/core": "^2.30.0",
+    "@x402/evm": "^2.30.0",
+    "@x402/express": "^2.30.0",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "viem": "^2.57.17"
+  },
+  "engines": {
+    "node": ">=20.12"
+  }
+}
