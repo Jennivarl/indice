@@ -1,31 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <radialGradient id="navy" cx="0.35" cy="0.3" r="0.9">
-      <stop offset="0" stop-color="#1B4472"/>
-      <stop offset="1" stop-color="#0A1F38"/>
-    </radialGradient>
-    <linearGradient id="gold" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#E9B949"/>
-      <stop offset="0.55" stop-color="#F8DE8A"/>
-      <stop offset="1" stop-color="#D49A1E"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8CC8F2"/>
+      <stop offset="1" stop-color="#2F7FC8"/>
     </linearGradient>
-    <linearGradient id="ivory" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFDF7"/>
-      <stop offset="1" stop-color="#EDE6D3"/>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFD54A"/>
+      <stop offset="1" stop-color="#F2A900"/>
     </linearGradient>
   </defs>
-  <circle cx="256" cy="256" r="256" fill="url(#navy)"/>
-  <circle cx="256" cy="256" r="226" fill="none" stroke="#8CC8F2" stroke-opacity="0.55" stroke-width="3"/>
-  <circle cx="256" cy="256" r="214" fill="none" stroke="#8CC8F2" stroke-opacity="0.18" stroke-width="1.5"/>
-  <g transform="translate(0 -18)">
-  <!-- serif I -->
-  <path fill="url(#ivory)" d="
-    M184 196 h144 v14 c-26 2 -36 8 -36 30 v148 c0 22 10 28 36 30 v14 h-144 v-14
-    c26 -2 36 -8 36 -30 v-148 c0 -22 -10 -28 -36 -30 z"/>
-  <!-- accent = rising arrow -->
-  <g fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M214 168 L252 140 L270 152 L312 110" stroke-width="14"/>
-    <path d="M286 106 L314 108 L312 136" stroke-width="14"/>
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+  <!-- price tag -->
+  <g transform="rotate(-12 256 256)">
+    <path d="M150 170 h170 a24 24 0 0 1 17 7 l64 64 a24 24 0 0 1 0 34 l-64 64 a24 24 0 0 1 -17 7 h-170 a24 24 0 0 1 -24 -24 v-128 a24 24 0 0 1 24 -24 z" fill="#FFFFFF"/>
+    <circle cx="352" cy="258" r="15" fill="#2F7FC8"/>
+    <!-- rising line inside the tag -->
+    <polyline points="168,300 210,268 244,282 300,212" fill="none" stroke="url(#sun)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="300" cy="212" r="17" fill="url(#sun)"/>
   </g>
-</g>
 </svg>
